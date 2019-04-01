@@ -1,0 +1,29 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@using Umbraco.Core.Models
+@using Umbraco.Web
+
+
+@*
+    This snippet makes a list of links of all visible pages of the site, as nested unordered HTML lists.
+
+    How it works:
+    - It uses a custom Razor helper called Traverse() to select and display the markup and links.
+*@
+
+
+
+@{
+	var selection = Model.Content.Site().Children()
+						.Where(x => x.IsVisible())
+						.Where(x => x.Name != "Sitemap");
+}
+<ul class="list-unstyled">
+	@foreach(var item in selection){
+		<li>
+			<a class="text-white"   href="@item.Url">@item.Name</a>
+		</li>
+	}
+</ul>
+
+
+
